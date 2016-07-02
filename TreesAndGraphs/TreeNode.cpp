@@ -3,12 +3,14 @@
 #include <vector>
 
 class Node{
+private:
   int val;
 public:
-
+  // pointers made public for easy navigation
   Node* left = NULL;
   Node* right = NULL;
   Node* root = NULL;
+  //  Constructors of Node
   Node(const int& data, Node* l, Node* r, Node* root){
     this->left = l;
     this->right = r;
@@ -18,6 +20,7 @@ public:
   Node(const int& data){
     this->val = data;
   }
+  // append child methods
   void appendRight(Node* child){
     this->right = child;
     child->root = this;
@@ -69,6 +72,18 @@ bool validBST(Node* root){
   }
   return rtn;
 }
+Node* nextNode(Node* ptr){
+  if(ptr->right){
+    return ptr->right;
+  }
+  if(ptr->root){
+    return ptr->root;
+  }
+  else{
+    ptr = NULL;
+    return ptr;
+  }
+}
 
 int main() {
   /* code */
@@ -84,6 +99,8 @@ int main() {
   r.appendLeft(&l2);
   r.appendRight(&r2);
   bool resp = validBST(&rt);
-  std::cout <<  "value returned:"<< resp << std::endl;
+  std::cout <<  "Valid BST ? "<< resp << std::endl;
+  Node* ptr = nextNode(&l);
+  std::cout <<  "Next Node in Tree: "<< ptr->getVal() << std::endl;
   return 0;
 }
